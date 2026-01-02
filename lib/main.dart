@@ -3,10 +3,12 @@ import 'package:notif_learn/screen/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:notif_learn/firebase_options.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
   runApp(MyApp());
 }
 
@@ -18,6 +20,11 @@ class MyApp extends StatefulWidget {
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  print("Menangani pesan background:${message.messageId}");
+}
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel',
