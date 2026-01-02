@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('My Flutter App'),
         ),
-        body: Myhome(),
+        body: MyHome(),
       ),
     );
   }
